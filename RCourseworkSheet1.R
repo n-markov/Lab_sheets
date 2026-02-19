@@ -41,6 +41,57 @@ prob_E3_biased <- sum(prob_biased_10[even_indices])
 prob_E3_fair
 prob_E3_biased
 
+# Problem 2.a
+
+nums <- 1:6
+pow_of_10 <- 10^nums
+results <- (1-1/pow_of_10)^pow_of_10
+
+nums
+pow_of_10
+results
+
+# Problem 2.b
+
+# Observing reciprocal_results we notice that as n -> inf, reciprocal_results -> e.
+# Hence, (1-1/n)^n -> e^-1. 
+
+reciprocal_results <- 1/results
+reciprocal_results
+
+# Problem 2.c
+num_students = 312
+# Let X_i represent the ith student. P(Nobody wins a chocolate egg)
+# = P(X_1 doesn't win and X_2 doesn't win and ... and X_312 doesn't win)
+# = P(X_1 doesn't win) * P(X_2 doesn't win) * ... * P(X_312 doesn't win), by independence
+# = P(X_1 doesn't win) ^ 312, by identical distribution
+# = (1 - P(X_1 does win)) ^ 312
+
+# Observe that, P(X_1 does win) = P(Rolling a 6 on a fair die) * P(Choosing the Ace of Spades) = 1/6 * 1/52 = 1/312
+prob_win <- 1/312
+# Hence, P(Nobody wins a chocolate egg) = (1 - 1/312) ^ 312 approx 1/e, as seen previously for large n.
+prob_no_one_wins <- (1 - prob_win) ^ num_students
+prob_no_one_wins
+
+# Problem 2.d.i
+years = 5
+# P(No winners over 5 years) = ((1 - 1/312) ^ 312) ^ 5 approx (e^-1)^5 = e^-5
+prob_no_one_wins_5years <- prob_no_one_wins ^ years
+prob_no_one_wins_5years
+
+# Problem 2.d.ii
+# Let T represent the total number of chocolates awarded over 5 years with total number of students = 312*5 = 1560
+# Hence, T ~ Binom(1560, 1/312)
+
+samples <- rbinom(20, 1560, 1/312)
+
+barplot(table(samples),
+     main = "# Chocolate Eggs won over a 5-Year Period across 20 Samples",
+     xlab = "Number of Eggs", ylab = "Frequency")
+
+
+
+
 
 
 
